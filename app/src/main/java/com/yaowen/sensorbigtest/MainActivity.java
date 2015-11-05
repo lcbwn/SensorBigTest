@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         // 获取传感器模拟器的传感器管理服务
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL);
+        //Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL);
 
     }
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         float[] values = event.values;
-        // // 真机上获取触发event的传感器类型
+        // 真机上获取触发event的传感器类型
         // Sensor sensorType = event.sensor;
         // 模拟器上获取触发event的传感器类型
         Sensor sensorType = event.sensor;
