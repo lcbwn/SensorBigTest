@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //UI控件
+        //初始化UI控件
         etOrientation = (EditText) findViewById(R.id.etOrientation);
         etMagnetic = (EditText) findViewById(R.id.etMagnetic);
         etTemerature = (EditText) findViewById(R.id.etTemerature);
@@ -85,28 +85,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         float[] values = event.values;
         // // 真机上获取触发event的传感器类型
-        // int sensorType = event.sensor.getType();
+        // Sensor sensorType = event.sensor;
         // 模拟器上获取触发event的传感器类型
         Sensor sensorType = event.sensor;
         StringBuilder sb = null;
         sb = new StringBuilder();
         // 判断是哪个传感器发生改变
-        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)) {
+        //方向传感器
+        if (sensorType == sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)) {
             sb.append("绕Z轴转过的角度：");
             sb.append(values[0] + "\n");
             sb.append("绕X轴转过的角度：");
             sb.append(values[1] + "\n");
-            sb.append(
-                    "绕Y轴转过的角度：");
+            sb.append("绕Y轴转过的角度：");
             sb.append(values[2]);
             etOrientation.setText(sb.toString());
         }
-        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)) {
+        //光照传感器
+        if (sensorType == sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)) {
             sb.append("当前光的强度为：");
             sb.append(values[0]);
             etLight.setText(sb.toString());
         }
-        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)) {
+        //磁场传感器
+        if (sensorType == sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)) {
             sb.append("X方向上的角度：");
             sb.append(values[0] + "\n");
             sb.append("Y方向上的角度：");
@@ -115,64 +117,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sb.append(values[2]);
             etMagnetic.setText(sb.toString());
         }
-        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE)) {
+        //温度传感器
+        if (sensorType == sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE)) {
             sb.append("当前温度为：");
             sb.append(values[0]);
             etTemerature.setText(sb.toString());
         }
-        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)) {
+        //压力传感器
+        if (sensorType == sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)) {
             sb.append("当前压力为：");
             sb.append(values[0]);
             etPressure.setText(sb.toString());
         }
-        /*switch (sensorType) {
-            // 方向传感器
-            case Sensor.TYPE_ORIENTATION:
-                sb = new StringBuilder();
-                sb.append("绕Z轴转过的角度：");
-                sb.append(values[0]);
-                sb.append("绕X轴转过的角度：");
-                sb.append(values[1]);
-                sb.append(
-                        "绕Y轴转过的角度：");
-                sb.append(values[2]);
-                etOrientation.setText(sb.toString());
-                break;
-            // 磁场传感器
-            case Sensor.TYPE_MAGNETIC_FIELD:
-                sb = new StringBuilder();
-                sb.append("X方向上的角度：");
-                sb.append(values[0]);
-                sb.append("Y方向上的角度：");
-                sb.append(values[1]);
-                sb.append("Z方向上的角度：");
-                sb.append(values[2]);
-                etMagnetic.setText(sb.toString());
-                break;
-            // 温度传感器
-            case Sensor.TYPE_TEMPERATURE:
-                sb = new StringBuilder();
-                sb.append("当前温度为：");
-                sb.append(values[0]);
-                etTemerature.setText(sb.toString());
-                break;
-            // 光传感器
-            case Sensor.TYPE_LIGHT:
-                sb = new StringBuilder();
-                sb.append("当前光的强度为：");
-                sb.append(values[0]);
-                etLight.setText(sb.toString());
-                break;
-            // 压力传感器
-            case Sensor.TYPE_PRESSURE:
-                sb = new StringBuilder();
-                sb.append("当前压力为：");
-                sb.append(values[0]);
-                etPressure.setText(sb.toString());
-                break;
-        }*/
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
